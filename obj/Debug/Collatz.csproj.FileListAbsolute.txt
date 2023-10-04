@@ -1,0 +1,8 @@
+C:\Users\dimas\source\repos\Collatz\Collatz\obj\Debug\Collatz.csproj.AssemblyReference.cache
+C:\Users\dimas\source\repos\Collatz\Collatz\obj\Debug\Collatz.csproj.SuggestedBindingRedirects.cache
+C:\Users\dimas\source\repos\Collatz\Collatz\obj\Debug\Collatz.csproj.CoreCompileInputs.cache
+C:\Users\dimas\source\repos\Collatz\Collatz\bin\Debug\Collatz.exe.config
+C:\Users\dimas\source\repos\Collatz\Collatz\bin\Debug\Collatz.exe
+C:\Users\dimas\source\repos\Collatz\Collatz\bin\Debug\Collatz.pdb
+C:\Users\dimas\source\repos\Collatz\Collatz\obj\Debug\Collatz.exe
+C:\Users\dimas\source\repos\Collatz\Collatz\obj\Debug\Collatz.pdb
