@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Collatz
@@ -11,27 +8,34 @@ namespace Collatz
     {
         static void Main(string[] args)
         {
-            int N = 1000;
-            int numThreads = 12;
+            const int N = 1000;
+            const int numThreads = 12;
 
-            ConcurrentBag<int> results = new ConcurrentBag<int>();
+            long totalSteps = 0;
+            object lockObject = new object();
 
             // Створюємо завдання для обчислення кількості кроків для кожного числа
             Parallel.For(1, N + 1, new ParallelOptions { MaxDegreeOfParallelism = numThreads },
-                (n) =>
+                () => 0, // Ініціалізуємо локальну змінну для кожного потоку
+                (n, loopState, localSteps) =>
                 {
                     int steps = CollatzConjectureSteps(n);
-                    results.Add(steps);
-                    Console.WriteLine($"Number {n}: {steps} steps");
+                    return localSteps + steps; // Додаємо кроки для поточного числа до локального підрахунку
+                },
+                (localSteps) =>
+                {
+                    // Додаємо локальний підрахунок до загальної кількості кроків захищеною атомарною операцією
+                    Interlocked.Add(ref totalSteps, localSteps);
                 });
 
             // Обчислюємо середню кількість кроків
-            double averageSteps = results.Average();
+            double averageSteps = (double)totalSteps / N;
 
             Console.WriteLine($"Average count of steps: {averageSteps}");
 
             Console.ReadLine();
         }
+
 
         static int CollatzConjectureSteps(int n)
         {
